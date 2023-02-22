@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
 import { User } from '../Interfaces/user.interface';
@@ -10,21 +10,34 @@ import { User } from '../Interfaces/user.interface';
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api/user/registro';
   private apiUrl2 = 'http://127.0.0.1:8000/api/user';
+  private apiUrl3 = 'http://127.0.0.1:8000/api';
   private token: string | null = null;
   private rol_id: number | null = null;
+  isValid(): boolean {
+    const token = localStorage.getItem('token');
+    return true;
+  }
+
+  
 
   constructor(private http: HttpClient) { }
 
-
-  login(user: User)
-  {
-      return this.http.post<User>(this.apiUrl, user)
-      .pipe(
-        retry(3),
-        catchError(this.handleError)
-      );
+  getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
   }
-  
+  verifyToken(token: string) {
+    return this.http.get<boolean>(`${this.apiUrl3}/verifyToken`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
+
+
   logout(): void {
     this.token = null;
     this.rol_id = null;
@@ -39,6 +52,7 @@ export class AuthService {
     return this.token;
   }
 
+
   info(id: number)
   {
     return this.http.get<User>(this.apiUrl2 + '/' + id)
@@ -47,6 +61,18 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
+
+  login(user: User)
+  {
+      return this.http.post<User>(this.apiUrl, user)
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      );
+  }
+  
+
+
 
   private handleError(error: HttpErrorResponse)
   {

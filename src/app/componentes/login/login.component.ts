@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../Interfaces/user.interface';
+import { User } from '../../Interfaces/user.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SharedServiceService } from '../services/shared-service.service';
+import { SharedServiceService } from '../../services/shared-service.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +29,7 @@ export class LoginComponent {
   }
   get password(){ return this.form.get('password') as FormControl}
   get email(){ return this.form.get('email') as FormControl}
+  
     onSubmit(values: User)
     {  
       this.authService.login(values).subscribe((response:any) =>
