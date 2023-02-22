@@ -11,6 +11,9 @@ import { RouterModule } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { LoginComponent } from './componentes/login/login.component';
 import { AuthService } from './services/auth.service';
+import { RolesComponent } from './componentes/admins/roles/roles.component';
+import { UsersComponent } from './componentes/admins/users/users.component';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +21,10 @@ import { AuthService } from './services/auth.service';
     FormularioComponent,
     NavBarComponent,
     LoginComponent,
+    RolesComponent,
+    UsersComponent,
+
+
     
   ],
   imports: [
