@@ -1,0 +1,52 @@
+<!-- <div class="flex justify-center">
+    <div class="relative mb-3 xl:w-96" data-te-input-wrapper-init>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <input
+        type="text"
+        class="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+        id="codigo" class="form-control" formControlName="codigo"
+        placeholder="Ingrese numero de verificación" />
+      <label
+        for="exampleFormControlInputText"
+        class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
+        >Text input
+      </label>
+    
+      <button
+        type="submit"
+        class="bg-primary text-white rounded-full py-2 px-4 text-sm font-semibold"
+        >Enviar
+      </button>
+    </form>
+    
+  </div> -->
+
+  
+  <div class="font-sans">
+    <div class="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
+        <div class="relative sm:max-w-sm w-full">
+            <div class="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
+                <label for="" class="block mt-3 text-2xl text-gray-700 text-center font-semibold">
+                   Verificación
+                </label>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-10">
+                   <div class="mt-7">                
+                        <input type="text" formControlName="codigo" class="form-control" placeholder="Codigo de verificación" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="codigo.valid ||codigo.pristine">
+                            <span *ngIf="codigo.errors?.['required']">Codigo requerido</span>
+                            <span *ngIf="codigo.errors?.['minlength']">Debe tener al menos 4 dígitos</span>
+                            <span *ngIf="codigo.errors?.['maxlength']">Debe tener máximo 4 dígitos</span>
+                            <span *ngIf="codigo.errors?.['pattern']">Carácter inválido</span>
+                          </div>                                  
+                    </div>
+               
+                    <div class="mt-7 flex flex-col items-center">
+                      <button class="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded-full hover:shadow-inner" type="submit" [disabled]="form.invalid">
+                        Enviar
+                      </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

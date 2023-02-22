@@ -47,7 +47,7 @@ export class LoginComponent {
          
         });
         this.sharedService.setId(response.user.rol_id);  
-        this.router.navigate(['/']);
+        this.router.navigate(['/nav-bar']);
       },
       error => {
         console.log(error); 

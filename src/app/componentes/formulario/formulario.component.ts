@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder,FormControl, FormGroup,ValidatorFn, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Interfaces/user.interface';
 
 @Component({
@@ -9,7 +10,7 @@ import { User } from 'src/app/Interfaces/user.interface';
   styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent {
-  constructor (private fb:FormBuilder, private http: HttpClient){
+  constructor (private fb:FormBuilder, private http: HttpClient, private router: Router){
 
   }
 
@@ -91,6 +92,7 @@ export class FormularioComponent {
         } else {
           alert('Los datos se enviaron correctamente');
           this.formu.reset();
+          this.router.navigate(['/verify']);
         }
       },
      // error => alert(error)

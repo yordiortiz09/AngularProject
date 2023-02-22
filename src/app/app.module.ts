@@ -13,6 +13,8 @@ import { LoginComponent } from './componentes/login/login.component';
 import { AuthService } from './services/auth.service';
 import { RolesComponent } from './componentes/admins/roles/roles.component';
 import { UsersComponent } from './componentes/admins/users/users.component';
+import { SeeUsersComponent } from './componentes/admins/see-users/see-users.component';
+import { CodigoVerificacionComponent } from './componentes/codigo-verificacion/codigo-verificacion.component';
 
 
 @NgModule({
@@ -23,8 +25,8 @@ import { UsersComponent } from './componentes/admins/users/users.component';
     LoginComponent,
     RolesComponent,
     UsersComponent,
-
-
+    SeeUsersComponent,
+    CodigoVerificacionComponent,
     
   ],
   imports: [
@@ -37,9 +39,6 @@ import { UsersComponent } from './componentes/admins/users/users.component';
     // RouterModule.forRoot([
     //   {path: 'formulario', component: FormularioComponent},
     // ])
-    
-    
-    
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
