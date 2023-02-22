@@ -1,0 +1,67 @@
+<div class="font-sans">
+    <div class="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
+        <div class="relative sm:max-w-sm w-full">
+            <div class="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
+                <label for="" class="block mt-2 text-2xl text-gray-700 text-center font-semibold">
+                   Registro
+                </label>
+                <form [formGroup]="formu" (ngSubmit)="registrarUsuario()" class="mt-10">
+                                    
+                    <div class="mt-7">                
+                        <input type="text" formControlName="name"    class="form-control" placeholder="Nombres" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="name.valid ||name.pristine">
+                            <span *ngIf="name.errors?.['required']">Nombre obligatorio.</span>
+                            <span *ngIf="name.errors?.['minlength']">Debe tener minimo 3 Letras</span>
+                          </div>                                  
+                    </div>
+        
+                    <div class="mt-7">                
+                        <input type="email" formControlName="email" class="form-control" placeholder="Correo electronico" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="email.valid ||email.pristine">
+                            <span *ngIf="email.errors?.['required']">Correo Obligatorio.</span>
+                            <span *ngIf="email.errors?.['email']">Correo Invalido.</span>
+                          </div>                                  
+                    </div>
+
+                    <div class="mt-7">                
+                        <input type="text" formControlName="telefono" class="form-control" placeholder="Telefono" 
+                        class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">   
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="telefono.valid || telefono.pristine">
+                            <span *ngIf="telefono.errors?.['required']">Contraseña obligatorio</span>
+                            <span *ngIf="telefono.errors?.['minlength']">Tiene que contener 10 numeros</span>
+                          </div>                      
+                    </div>
+
+                    <div class="mt-7">                
+                        <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" 
+                        class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">   
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="password.valid || password.pristine">
+                            <span *ngIf="password.errors?.['required']">Contraseña obligatorio</span>
+                            <span *ngIf="password.errors?.['minlength']">Debe tener minimo 5 letras</span>
+                          </div>                      
+                    </div>
+                    
+                    <div class="mt-7">                
+                        <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Confirmar Contraseña" 
+                        class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">   
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="confirmPassword.valid || confirmPassword.pristine">
+                            <span *ngIf="confirmPassword.errors?.['required'] && confirmPassword.touched">Confirmación de contraseña requerida.</span>
+                      
+                            <span *ngIf="confirmPassword.errors?.['passwordMismatch']&& confirmPassword.touched">Las contraseñas no coinciden.</span>
+                        
+                          </div>                      
+                    </div>
+
+                    <div class="mt-7 flex flex-col items-center">
+                        <button class="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded-full hover:shadow-inner" type="submit"
+                        [disabled]="formu.invalid">
+                            Registrarme
+                        </button>
+                        <a class="text-blue-400 hover:text-blue-500" routerLink="/login" routerLinkActive="active">¿Ya tienes cuenta? Inicia Sesión</a>
+                    </div>
+        
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
