@@ -1,0 +1,39 @@
+<h2 class="text-lg font-bold mb-4">Editar usuario</h2>
+
+<form #editUserForm="ngForm">
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2" for="role">
+      Rol
+    </label>
+    <select class="form-select block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+            name="rol_id" [(ngModel)]="user.rol_id" required>
+      <option value="1">Administrador</option>
+      <option value="2">Editor</option>
+      <option value="3">Usuario</option>
+    </select>
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2" for="status">
+      Estado
+    </label>
+    <div class="flex items-center">
+      <input class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" 
+             type="checkbox" name="status" [(ngModel)]="user.status">
+      <label class="ml-2 block text-gray-700" for="status">
+        Activo
+      </label>
+    </div>
+  </div>
+
+  <div class="flex justify-end">
+    <button type="button" class="py-2 px-4 bg-gray-500 text-white rounded-md mr-2"
+            (click)="cancel()">
+      Cancelar
+    </button>
+    <button type="button" class="py-2 px-4 bg-blue-500 text-white rounded-md"
+            [disabled]="editUserForm.invalid"
+            (click)="saveUser()">
+      Guardar cambios
+    </button>
+  </div>
+</form>

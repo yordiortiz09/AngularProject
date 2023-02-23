@@ -46,8 +46,14 @@ export class LoginComponent {
         { console.log(user);
          
         });
+        if(response.user.rol_id == 1){
         this.sharedService.setId(response.user.rol_id);  
-        this.router.navigate(['/nav-bar']);
+        this.router.navigate(['/see-users']);
+        }
+        else if(response.user.rol_id == 2){
+          this.sharedService.setId(response.user.rol_id);  
+          this.router.navigate(['/']);
+        }
       },
       error => {
         console.log(error); 
@@ -55,6 +61,7 @@ export class LoginComponent {
         this.apiFailed = true;
       });
     }
+   
   
   }
 

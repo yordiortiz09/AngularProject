@@ -5,6 +5,6 @@ export interface User {
     telefono: number;
     password: string;
     rol_id: number;
-    status: number;
+    status: boolean ;
     no_verificación: number;
 }

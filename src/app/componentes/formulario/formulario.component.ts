@@ -87,7 +87,7 @@ export class FormularioComponent {
 
     this.http.post<User>(url, body.toString(), { headers }).subscribe(
       response => {
-        if (response && response.status && response.status >= 400) {
+        if (response && response.status && response.status ) {
           alert(`Se produjo un error: ${response.status}`);
         } else {
           alert('Los datos se enviaron correctamente');
