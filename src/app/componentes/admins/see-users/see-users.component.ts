@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/Interfaces/user.interface';
 import { SharedServiceService } from 'src/app/services/shared-service.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { EditUserDialogComponent } from 'src/app/edit-user-dialog/edit-user-dialog.component';
+import { EditUserDialogComponent } from 'src/app/componentes/edit-user-dialog/edit-user-dialog.component';
 
 
 @Component({

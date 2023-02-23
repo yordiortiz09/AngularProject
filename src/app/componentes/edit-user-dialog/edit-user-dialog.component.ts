@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from '../Interfaces/user.interface';
-import { AuthService } from '../services/auth.service';
+import { User } from '../../Interfaces/user.interface';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-edit-user-dialog',

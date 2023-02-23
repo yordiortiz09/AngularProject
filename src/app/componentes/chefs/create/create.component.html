@@ -1,0 +1,66 @@
+
+<div class="font-sans">
+    <div class="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
+        <div class="relative sm:max-w-sm w-full">
+            <div class="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
+                <label for="" class="block mt-2 text-2xl text-gray-700 text-center font-semibold">
+                   Registrar chef
+                </label>
+                <form [formGroup]="formu" (ngSubmit)="registrarChef()" class="mt-10">
+                                    
+                    <div class="mt-7">                
+                        <input type="text" formControlName="nombre"  class="form-control" placeholder="Nombres" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="nombre.valid ||nombre.pristine">
+                            <span *ngIf="nombre.errors?.['required']">Nombre obligatorio.</span>
+                            <span *ngIf="nombre.errors?.['minlength']">Debe tener minimo 3 caracteres</span>
+                            <span *ngIf="nombre.errors?.['maxlength']">Debe tener minimo 25 caracteres</span>
+                          </div>                                  
+                    </div>
+        
+                    <div class="mt-7">                
+                        <input type="text" formControlName="ap_paterno" class="form-control" placeholder="Apellido Paterno" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="ap_paterno.valid ||ap_paterno.pristine">
+                            <span *ngIf="ap_paterno.errors?.['required']">Correo Obligatorio.</span>
+                            <span *ngIf="ap_paterno.errors?.['minlength']">Debe tener minimo 3 caracteres.</span>
+                            <span *ngIf="ap_paterno.errors?.['maxlength']">Maximo 30 caracteres.</span>
+                          </div>                                  
+                    </div>
+
+                    <div class="mt-7">                
+                        <input type="text" formControlName="ap_materno" class="form-control" placeholder="Apellido Materno" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="ap_materno.valid ||ap_materno.pristine">
+                            <span *ngIf="ap_materno.errors?.['required']">Correo Obligatorio.</span>
+                            <span *ngIf="ap_materno.errors?.['minlength']">Debe tener minimo 3 caracteres.</span>
+                            <span *ngIf="ap_materno.errors?.['maxlength']">Maximo 30 caracteres.</span>
+                          </div>                                  
+                    </div>
+
+                    <label for="nacionalidad"  class="block mb-2 text-sm font-medium text-gray-900 bg-white:text-white">Seleccione su nacionalidad"</label>
+                    <select id="countries"  formControlName="nacionalidad"  class="form-control" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-100:bg-gray-700 bg-gray-100:border-gray-600 bg-gray-100:placeholder-gray-400 bg-gray-100::text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected>Escoga nacionalidad</option>
+                      <option value="Italiana">Italiana</option>
+                      <option value="Mexicana">Mexicana</option>
+                    </select>
+                    
+                    <div class="mt-7">                
+                        <input type="text" formControlName="edad" class="form-control" placeholder="Edad" 
+                        class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">   
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="edad.valid || edad.pristine">
+                            <span *ngIf="edad.errors?.['required'] && edad.touched">Edad requerida.</span>
+                            <span *ngIf="edad.errors?.['minlength']&& edad.touched">Minimo 2 caracteres.</span>
+                          </div>                      
+                    </div>
+
+                    <div class="mt-7 flex flex-col items-center">
+                        <button class="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded-full hover:shadow-inner" 
+                        type="submit" 
+                        [disabled]="formu.invalid" >
+                           Crear chef
+                        </button>
+                    </div>
+        
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

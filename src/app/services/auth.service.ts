@@ -8,6 +8,7 @@ import { User } from '../Interfaces/user.interface';
   providedIn: 'root'
 })
 export class AuthService {
+
   private apiUrl = 'http://127.0.0.1:8000/api/user/registro';
   private apiUrl2 = 'http://127.0.0.1:8000/api/user';
   private apiUrl3 = 'http://127.0.0.1:8000/api';
@@ -15,7 +16,7 @@ export class AuthService {
   private Urole = 'http://127.0.0.1:8000/api/user/update/role';
   private baseUrl='http://127.0.0.1:8000/api/user/update'
   private token: string | null = null;
-  private rol_id: number | null = null;
+  private role: string | null = null;
   
   isValid(): boolean {
     const token = localStorage.getItem('token');
@@ -46,8 +47,6 @@ export class AuthService {
 
 
   logout(): void {
-    this.token = null;
-    this.rol_id = null;
     localStorage.removeItem('token');
     localStorage.removeItem('rol_id');
     localStorage.removeItem('id');
@@ -122,5 +121,24 @@ updateUserRoleAndStatus(userId: number, roleId: number, status: boolean): Observ
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+  public getRole() {
+    return localStorage.getItem('rol_id');
+  }
+
+  setRole(role: string) {
+    this.role = role;
+  }
+
+  public isAdmin() {
+    return this.getRole() === '1';
+  }
+
+  public isEditor() {
+      return this.getRole() === '2';
+  }
+
+  public isViewer() {
+      return this.getRole() === '3';
   }
 }

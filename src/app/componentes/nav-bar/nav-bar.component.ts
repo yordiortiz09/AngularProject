@@ -9,7 +9,12 @@ import { FormularioComponent } from '../formulario/formulario.component';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent  {
+export class NavBarComponent   implements OnInit{
+  isAdmin: boolean = false;
+  isEditor: boolean=  false;
+  isViewer: boolean= false;
+
+  
 constructor (private router: Router, private authService:AuthService) { }
   logOut(){
     if (confirm ('¿Desea cerrar sesión?')){
@@ -22,9 +27,23 @@ constructor (private router: Router, private authService:AuthService) { }
     }
    
   }
+  
+    ngOnInit() {
+      // Obtener el rol del usuario de localStorage
+      const role = localStorage.getItem('rol_id');
+  
+    
+      this.isAdmin = Number(role) == 1;
+      this.isEditor = Number(role) == 2;
+      this.isViewer = Number(role) == 3;
+  }
   isSessionActive() 
   {
     return !!localStorage.getItem('token');
   }  
+getUser(){ 
+  this.router.navigate(['/see-users']);
+}
+  
 }
  

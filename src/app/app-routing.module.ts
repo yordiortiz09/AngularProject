@@ -8,7 +8,9 @@ import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
 import { SeeUsersComponent } from './componentes/admins/see-users/see-users.component';
 import { LoginGuard } from './guards/login.guard';
 import { RolGuard } from './guards/rol.guard';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { UnauthorizedComponent } from './componentes/unauthorized/unauthorized.component';
+import { CreateComponent } from '../app/componentes/chefs/create/create.component';
+import { SeeChefsComponent } from './componentes/chefs/see-chefs/see-chefs.component';
 
 
 const routes: Routes = [
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   { path: 'verify', component: CodigoVerificacionComponent},
   { path: 'see-users', component: SeeUsersComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1'] }},
-  { path: 'unauthorized', component: UnauthorizedComponent } 
+  { path: 'unauthorized', component: UnauthorizedComponent } ,
+  { path:'chef-create', component: CreateComponent},
+  {path:'chefs-info', component: SeeChefsComponent}
  
   
   // { path: 'registrarse', component: FormularioComponent},

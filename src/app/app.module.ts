@@ -17,8 +17,13 @@ import { SeeUsersComponent } from './componentes/admins/see-users/see-users.comp
 import { CodigoVerificacionComponent } from './componentes/codigo-verificacion/codigo-verificacion.component';
 import { TokenInterceptorService } from './interceptores/token-interceptor.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+import { UnauthorizedComponent } from './componentes/unauthorized/unauthorized.component';
+import { EditUserDialogComponent } from './componentes/edit-user-dialog/edit-user-dialog.component';
+import { CreateComponent } from './componentes/chefs/create/create.component';
+import { EditComponent } from './componentes/chefs/edit/edit.component';
+import { SeeChefsComponent } from './componentes/chefs/see-chefs/see-chefs.component';
+
+
 
 
 
@@ -35,6 +40,9 @@ import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.com
     CodigoVerificacionComponent,
     UnauthorizedComponent,
     EditUserDialogComponent,
+    CreateComponent,
+    EditComponent,
+    SeeChefsComponent
     
   ],
   imports: [
