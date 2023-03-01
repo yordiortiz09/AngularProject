@@ -1,21 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, retry, throwError } from 'rxjs';
-import { Chef } from '../Interfaces/chef.interface';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Platos } from '../Interfaces/tiposPlato.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChefService {
+export class PlatoService {
   message: string = '';
-  
 
   constructor(private http:HttpClient) { }
 
-
-  getChefs(): Observable<Chef[]> 
+  getPlatos(): Observable<Platos[]> 
   {
-    return this.http.get<Chef[]>('http://192.168.123.110:8000/api/chef/infoyordi')
+    return this.http.get<Platos[]>('http://192.168.123.110:8000/api/tipo_platoyoerdi/info')
     .pipe(
       catchError(error => {
         this.message='Ocurrio un error';
@@ -24,8 +22,8 @@ export class ChefService {
       
     )
   }
-  updateChef(chef: Chef, id :number): Observable<Chef> {
-    return this.http.put<Chef>(`http://192.168.123.110:8000/api/chef/updateyordi/`+ id, chef)
+  updatePlatos(plato: Platos, id :number): Observable<Platos> {
+    return this.http.put<Platos>(`http://192.168.123.110:8000/api/tipo_platoyordi/update/`+ id, plato)
     .pipe(
       catchError(error => {
         this.message='Ocurrio un error';
@@ -34,9 +32,9 @@ export class ChefService {
       )
     )
 }
-mostrarChef(id: number)
+mostrarPlato(id: number)
 {
-  return this.http.get<Chef>('http://192.168.123.110:8000/api/chef/infoyordi' + '/' + id)
+  return this.http.get<Platos>('http://192.168.123.110:8000/api/tipo_platoyordi/info' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';
@@ -44,10 +42,9 @@ mostrarChef(id: number)
     })
   )
 }
-
-eliminarChef(id: number)
+eliminarPlato(id: number)
 {
-  return this.http.delete<Chef>('http://192.168.123.110:8000/api/chef/deleteyordi' + '/' + id)
+  return this.http.delete<Platos>('http://192.168.123.110:8000/api/tipo_platoyordi/delete' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';
@@ -55,5 +52,4 @@ eliminarChef(id: number)
     })
   )
 }
-
 }

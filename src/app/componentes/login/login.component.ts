@@ -52,7 +52,13 @@ export class LoginComponent {
         }
         else if(response.user.rol_id == 2){
           this.sharedService.setId(response.user.rol_id);  
-          this.router.navigate(['/']);
+          this.router.navigate(['chefs-info']);
+        }
+        else if(response.user.rol_id == 3){
+          this.sharedService.setId(response.user.rol_id); 
+          this.router.navigate(['chefs-info']);
+        
+          
         }
       },
       error => {

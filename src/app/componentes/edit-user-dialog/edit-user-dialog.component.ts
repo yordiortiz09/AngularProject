@@ -28,10 +28,6 @@ export class EditUserDialogComponent {
       .subscribe(updatedUser => {
         this.dialogRef.close(updatedUser);
         location.reload();
-     
-        
-        
-      
       });
   }
 

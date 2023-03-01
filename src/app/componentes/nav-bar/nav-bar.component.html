@@ -18,9 +18,9 @@
             <button *ngIf="isSessionActive()"  routerLink="/chefs-info" routerLinkActive="active" class="text-blue-400 hover:text-blue-500 text-left">Chefs</button>
           </li>     
           <li>
-            <button *ngIf="isSessionActive()"  class="text-blue-400 hover:text-blue-500 text-left">Ingredientes</button>
+            <button *ngIf="isSessionActive()"  routerLink="/ingredientes-info" class="text-blue-400 hover:text-blue-500 text-left">Ingredientes</button>
           <li>
-            <button *ngIf="isSessionActive()"   class="text-blue-400 hover:text-blue-500 text-left">Tipo de Plato</button>
+            <button *ngIf="isSessionActive()"  routerLink="/platos-info" class="text-blue-400 hover:text-blue-500 text-left">Tipo de Plato</button>
           </li>   
           <li>
             <button *ngIf="isAdmin" (click)="getUser()" class="text-gray-500 hover:text-blue-500 text-right">Usuarios</button>

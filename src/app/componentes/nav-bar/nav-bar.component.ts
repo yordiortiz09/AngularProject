@@ -20,6 +20,7 @@ constructor (private router: Router, private authService:AuthService) { }
     if (confirm ('¿Desea cerrar sesión?')){
       this.authService.logout();
       this.router.navigate(['/login']);
+      location.reload();
     } else{
       return console.error('No se pudo cerrar sesión');
       
@@ -29,10 +30,7 @@ constructor (private router: Router, private authService:AuthService) { }
   }
   
     ngOnInit() {
-      // Obtener el rol del usuario de localStorage
       const role = localStorage.getItem('rol_id');
-  
-    
       this.isAdmin = Number(role) == 1;
       this.isEditor = Number(role) == 2;
       this.isViewer = Number(role) == 3;

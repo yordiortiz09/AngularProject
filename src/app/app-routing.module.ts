@@ -12,6 +12,12 @@ import { UnauthorizedComponent } from './componentes/unauthorized/unauthorized.c
 import { CreateComponent } from '../app/componentes/chefs/create/create.component';
 import { SeeChefsComponent } from './componentes/chefs/see-chefs/see-chefs.component';
 import { EditComponent } from './componentes/chefs/edit/edit.component';
+import { CreateIngredientesComponent } from './componentes/ingredientes/create-ingredientes/create-ingredientes.component';
+import { SeeIngredientesComponent } from './componentes/ingredientes/see-ingredientes/see-ingredientes.component';
+import { EditIngredientesComponent } from './componentes/ingredientes/edit-ingredientes/edit-ingredientes.component';
+import { CreatePlatosComponent } from './componentes/tiposPlatos/create-platos/create-platos.component';
+import { SeePlatosComponent } from './componentes/tiposPlatos/see-platos/see-platos.component';
+import { EditPlatosComponent } from './componentes/tiposPlatos/edit-platos/edit-platos.component'; 
 
 
 const routes: Routes = [
@@ -21,10 +27,22 @@ const routes: Routes = [
   { path: 'verify', component: CodigoVerificacionComponent},
   { path: 'see-users', component: SeeUsersComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1'] }},
   { path: 'unauthorized', component: UnauthorizedComponent } ,
-  { path:'chef-create', component: CreateComponent},
-  {path:'chefs-info', component: SeeChefsComponent},
-  {path: 'chef-edit/:id', component: EditComponent}
- 
+
+
+  //Chef
+  { path:'chef-create', component: CreateComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1', '2'] }},
+  {path:'chefs-info', component: SeeChefsComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1', '2','3'] }},
+  {path: 'chef-edit/:id', component: EditComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1', '2'] }},
+
+  //Ingredientes
+  {path: 'ingredientes-create', component: CreateIngredientesComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1','2'] }},
+  {path: 'ingredientes-info', component: SeeIngredientesComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1','2','3'] }},
+  {path: 'ingredientes-edit/:id', component: EditIngredientesComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1', '2'] }},
+
+  //Platos
+  {path: 'platos-create', component: CreatePlatosComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1','2'] }},
+  {path: 'platos-info', component: SeePlatosComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1','2','3'] }},
+  {path: 'platos-edit/:id', component: EditPlatosComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1','2'] }},
   
   // { path: 'registrarse', component: FormularioComponent},
 ];

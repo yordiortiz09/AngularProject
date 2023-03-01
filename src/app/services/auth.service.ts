@@ -9,12 +9,22 @@ import { User } from '../Interfaces/user.interface';
 })
 export class AuthService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api/user/registro';
-  private apiUrl2 = 'http://127.0.0.1:8000/api/user';
-  private apiUrl3 = 'http://127.0.0.1:8000/api';
-  private apiUpdate = 'http://127.0.0.1:8000/api/user/update/status';
-  private Urole = 'http://127.0.0.1:8000/api/user/update/role';
-  private baseUrl='http://127.0.0.1:8000/api/user/update'
+  // private apiUrl = 'http://127.0.0.1:8000/api/user/registro';
+  // private apiUrl2 = 'http://127.0.0.1:8000/api/user';
+  // private apiUrl3 = 'http://127.0.0.1:8000/api';
+  // private apiUpdate = 'http://127.0.0.1:8000/api/user/update/status';
+  // private Urole = 'http://127.0.0.1:8000/api/user/update/role';
+  // private baseUrl='http://127.0.0.1:8000/api/user/update'
+  // private token: string | null = null;
+  // private role: string | null = null;
+
+  
+  private apiUrl = 'http://192.168.123.110:8000/api/user/registro';
+  private apiUrl2 = 'http://192.168.123.110:8000/api/user';
+  private apiUrl3 = 'http://192.168.123.110:8000/api';
+  private apiUpdate = 'http://192.168.123.110:8000/api/user/update/status';
+  private Urole = 'http://192.168.123.110:8000/api/user/update/role';
+  private baseUrl='http://192.168.123.110:8000/api/user/update'
   private token: string | null = null;
   private role: string | null = null;
   
@@ -28,6 +38,10 @@ export class AuthService {
   constructor(private http: HttpClient) {
   
    }
+   public checkRole(): Observable<any> {
+    return this.http.get('/api/user');
+  }
+
  
 
   getHeaders(): HttpHeaders {
@@ -62,7 +76,7 @@ export class AuthService {
   }
   deleteUser(id: number)
   {
-    return this.http.delete('http://127.0.0.1:8000/api/user/delete' + '/' + id)
+    return this.http.delete('http://192.168.123.110:8000/api/user/delete' + '/' + id)
     .pipe(
       retry(3),
       catchError(this.handleError)
@@ -88,7 +102,7 @@ export class AuthService {
   }
   getUsers(): Observable<User[]> 
   {
-    return this.http.get<User[]>('http://127.0.0.1:8000/api/users')
+    return this.http.get<User[]>('http://192.168.123.110:8000/api/users')
     .pipe(
       retry(3),
       catchError(this.handleError)

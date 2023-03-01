@@ -22,6 +22,12 @@ import { EditUserDialogComponent } from './componentes/edit-user-dialog/edit-use
 import { CreateComponent } from './componentes/chefs/create/create.component';
 import { EditComponent } from './componentes/chefs/edit/edit.component';
 import { SeeChefsComponent } from './componentes/chefs/see-chefs/see-chefs.component';
+import { SeeIngredientesComponent } from './componentes/ingredientes/see-ingredientes/see-ingredientes.component';
+import { CreateIngredientesComponent } from './componentes/ingredientes/create-ingredientes/create-ingredientes.component';
+import { EditIngredientesComponent } from './componentes/ingredientes/edit-ingredientes/edit-ingredientes.component';
+import { SeePlatosComponent } from './componentes/tiposPlatos/see-platos/see-platos.component';
+import { CreatePlatosComponent } from './componentes/tiposPlatos/create-platos/create-platos.component';
+import { EditPlatosComponent } from './componentes/tiposPlatos/edit-platos/edit-platos.component';
 
 
 
@@ -42,7 +48,13 @@ import { SeeChefsComponent } from './componentes/chefs/see-chefs/see-chefs.compo
     EditUserDialogComponent,
     CreateComponent,
     EditComponent,
-    SeeChefsComponent
+    SeeChefsComponent,
+    SeeIngredientesComponent,
+    CreateIngredientesComponent,
+    EditIngredientesComponent,
+    SeePlatosComponent,
+    CreatePlatosComponent,
+    EditPlatosComponent
     
   ],
   imports: [
