@@ -11,6 +11,7 @@ import { RolGuard } from './guards/rol.guard';
 import { UnauthorizedComponent } from './componentes/unauthorized/unauthorized.component';
 import { CreateComponent } from '../app/componentes/chefs/create/create.component';
 import { SeeChefsComponent } from './componentes/chefs/see-chefs/see-chefs.component';
+import { EditComponent } from './componentes/chefs/edit/edit.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'see-users', component: SeeUsersComponent, canActivate: [AuthGuard, RolGuard], data: { allowedRoles: ['1'] }},
   { path: 'unauthorized', component: UnauthorizedComponent } ,
   { path:'chef-create', component: CreateComponent},
-  {path:'chefs-info', component: SeeChefsComponent}
+  {path:'chefs-info', component: SeeChefsComponent},
+  {path: 'chef-edit/:id', component: EditComponent}
  
   
   // { path: 'registrarse', component: FormularioComponent},

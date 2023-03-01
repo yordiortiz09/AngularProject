@@ -6,4 +6,5 @@ export interface Chef {
     nacionalidad: string;
     edad: number;
     status: number;
+    
 }

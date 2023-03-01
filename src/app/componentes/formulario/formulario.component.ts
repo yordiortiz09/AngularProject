@@ -86,16 +86,18 @@ export class FormularioComponent {
     body.set('telefono', this.formu.value.telefono!);
 
     this.http.post<User>(url, body.toString(), { headers }).subscribe(
-      response => {
-        if (response && response.status && response.status ) {
-          alert(`Se produjo un error: ${response.status}`);
+     response => {
+      if (response && response.status && response.status === true) {
+        alert(`Se produjo un error: ${response.status}`);
         } else {
           alert('Los datos se enviaron correctamente');
           this.formu.reset();
           this.router.navigate(['/verify']);
         }
       },
-     // error => alert(error)
+      error => {
+        alert(`Se produjo un error: ${error}`);
+      }
     );
 
   // name= new FormControl('', Validators.required);

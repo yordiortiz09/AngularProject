@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class EditUserDialogComponent {
   user: User;
-
+  cancelled = false;
   constructor(
     public dialogRef: MatDialogRef<EditUserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -19,16 +19,24 @@ export class EditUserDialogComponent {
     this.user = data.user;
  
   }
+  ngOnInit(): void {
+    this.user = Object.assign({}, this.data.user);
+  }
 
   saveUser(): void {
     this.authService.updateUserRoleAndStatus(this.user.id, this.user.rol_id, this.user.status)
       .subscribe(updatedUser => {
         this.dialogRef.close(updatedUser);
+        location.reload();
+     
+        
+        
       
       });
   }
 
   cancel(): void {
+    this.cancelled = true;
     this.dialogRef.close();
   }
 

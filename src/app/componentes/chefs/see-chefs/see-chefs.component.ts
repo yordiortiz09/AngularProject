@@ -12,7 +12,7 @@ import { ChefService } from 'src/app/services/chef.service';
 export class SeeChefsComponent {
   chefs : Chef[] = [];
 
-  constructor(private chefService: ChefService, router:Router)  {}
+  constructor(private chefService: ChefService,private route:Router)  {}
   ngOnInit() {
     this.getChefs();
   }
@@ -20,6 +20,21 @@ export class SeeChefsComponent {
   getChefs() {
     this.chefService.getChefs().subscribe((chefs)=> 
       this.chefs = chefs);
+  }
+   editarChef(id: number)
+   {
+    this.route.navigate(['chef-edit',id])
+   }
+   
+   eliminarChef(id: number, nombre : string): void {
+    if (confirm(`¿Está seguro que desea eliminar al chef, ${nombre}?`)) {
+      this.chefService.eliminarChef(id).subscribe(
+        () => {
+          this.chefs = this.chefs.filter((chef) => chef.id !== id);
+        },
+        (error) => console.error(error)
+      );
+    }
   }
 
 }

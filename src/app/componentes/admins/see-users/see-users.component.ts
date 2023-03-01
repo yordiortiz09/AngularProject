@@ -16,6 +16,8 @@ import { EditUserDialogComponent } from 'src/app/componentes/edit-user-dialog/ed
 export class SeeUsersComponent {
   id: number = 0;
   users: User[] = [];
+  isDialogOpen = false;
+  
 
   constructor(private authService: AuthService,private sharedService: SharedServiceService,private router:Router, private http: HttpClient, private matDialog: MatDialog) { }
   
@@ -31,15 +33,24 @@ export class SeeUsersComponent {
   }
 
   openEditDialog(user: User) {
-    const dialogRef = this.matDialog.open(EditUserDialogComponent, {
-      data: { user: user }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadUsers();
-      }
-    });
+    if (!this.isDialogOpen) {
+      this.isDialogOpen = true;
+  
+      const dialogRef = this.matDialog.open(EditUserDialogComponent, {
+        data: { user: user },
+        width: '450px',
+        height: '250px'
+      });
+  
+      dialogRef.afterClosed().subscribe((result: User) => {
+        this.isDialogOpen = false;
+  
+        if (result) {
+          // Actualizar los datos del usuario
+          Object.assign(user, result);
+        }
+      });
+    }
   }
   onDelete(id: number, rol_id: number)
   {
