@@ -4,6 +4,7 @@ import { catchError, Subject, throwError } from 'rxjs';
 import { Chef } from 'src/app/Interfaces/chef.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChefService } from 'src/app/services/chef.service';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-see-chefs',
@@ -13,7 +14,7 @@ import { ChefService } from 'src/app/services/chef.service';
 export class SeeChefsComponent implements OnDestroy  {
   chefs: Chef[] = [];
   eventSource: EventSource = new EventSource(
-    'http://127.0.0.1:3333/api/chefs/stream'
+    this.globalVariables.API_CHEF+'/stream'
   );
   userRole: number = 0;
  
@@ -22,7 +23,8 @@ export class SeeChefsComponent implements OnDestroy  {
     private chefService: ChefService,
     private route: Router,
     private authService: AuthService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private globalVariables : GlobalVariablesService
   ) {}
   ngOnInit() {
     this.getChefs();
