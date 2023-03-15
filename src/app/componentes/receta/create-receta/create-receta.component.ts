@@ -37,7 +37,7 @@ export class CreateRecetaComponent implements OnInit{
   formu = this.fb.group({
     'nombre':['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
     'duracion': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]], 
-    'preparacion': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]], 
+    'preparacion': ['', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]], 
     'chef':['',[Validators.required]],
     'ingrediente':['',[Validators.required]],
     'tipo_plato':['',[Validators.required]]

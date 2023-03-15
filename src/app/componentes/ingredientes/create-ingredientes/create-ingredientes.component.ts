@@ -21,7 +21,7 @@ export class CreateIngredientesComponent {
   }
   formu = this.fb.group({
     'ingredientes':['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-    'unidades': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]], 
+    'unidades': ['', [Validators.required, Validators.min(1), Validators.max(100)]], 
   });
   get ingredientes(){ return this.formu.get('ingredientes') as FormControl}
   get unidades(){ return this.formu.get('unidades') as FormControl}

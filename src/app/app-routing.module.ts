@@ -25,6 +25,7 @@ import { EditRecetaComponent } from './componentes/receta/edit-receta/edit-recet
 import { CreateConductorComponent } from './componentes/conductor/create-conductor/create-conductor.component';
 import { SeeConductoresComponent } from './componentes/conductor/see-conductores/see-conductores.component';
 import { EditConductorComponent } from './componentes/conductor/edit-conductor/edit-conductor.component';
+import { VerifyRolGuard } from './guards/verify-rol.guard';
 
 
 
@@ -33,35 +34,35 @@ const routes: Routes = [
   { path: 'registrarse', component: FormularioComponent, canActivate: [LoginGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'verify', component: CodigoVerificacionComponent},
-  { path: 'see-users', component: SeeUsersComponent, canActivate: [AuthGuard, RolGuard], data: { roles:[1]  }},
+  { path: 'see-users', component: SeeUsersComponent, canActivate: [AuthGuard, RolGuard, VerifyRolGuard], data: { roles:[1]  }},
   { path: 'unauthorized', component: UnauthorizedComponent, canActivate: [AuthGuard, StatusGuard]} ,
 
 
   //Chef
-  { path:'chef-create', component: CreateComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1, 2] }},
-  {path:'chefs-info', component: SeeChefsComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1, 2, 3] }},
-  {path: 'chef-edit/:id', component: EditComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1, 2] }},
+  { path:'chef-create', component: CreateComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1, 2] }},
+  {path:'chefs-info', component: SeeChefsComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1, 2, 3] }},
+  {path: 'chef-edit/:id', component: EditComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1, 2] }},
 
   //Ingredientes
-  {path: 'ingredientes-create', component: CreateIngredientesComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2] }},
-  {path: 'ingredientes-info', component: SeeIngredientesComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2,3] }},
-  {path: 'ingredientes-edit/:id', component: EditIngredientesComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1, 2] }},
+  {path: 'ingredientes-create', component: CreateIngredientesComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2] }},
+  {path: 'ingredientes-info', component: SeeIngredientesComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2,3] }},
+  {path: 'ingredientes-edit/:id', component: EditIngredientesComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1, 2] }},
 
   //Platos
-  {path: 'platos-create', component: CreatePlatosComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2] }},
-  {path: 'platos-info', component: SeePlatosComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2,3] }},
-  {path: 'platos-edit/:id', component: EditPlatosComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2] }},
+  {path: 'platos-create', component: CreatePlatosComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2] }},
+  {path: 'platos-info', component: SeePlatosComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2,3] }},
+  {path: 'platos-edit/:id', component: EditPlatosComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2] }},
   
   // { path: 'registrarse', component: FormularioComponent},
   //Recetas
-  {path: 'recetas-create', component: CreateRecetaComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2] }},
-  {path: 'recetas-info', component: SeeRecetaComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2,3] }},
-  {path: 'recetas-edit/:id', component: EditRecetaComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2] }},
+  {path: 'recetas-create', component: CreateRecetaComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2] }},
+  {path: 'recetas-info', component: SeeRecetaComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2,3] }},
+  {path: 'recetas-edit/:id', component: EditRecetaComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2] }},
 
   //Conductor
-  {path: 'conductores-create', component: CreateConductorComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2] }},
-  {path: 'conductores-info', component: SeeConductoresComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2,3] }},
-  {path: 'conductores-edit/:id', component: EditConductorComponent, canActivate: [AuthGuard, RolGuard, StatusGuard], data: { roles: [1,2] }},
+  {path: 'conductores-create', component: CreateConductorComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2] }},
+  {path: 'conductores-info', component: SeeConductoresComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2,3] }},
+  {path: 'conductores-edit/:id', component: EditConductorComponent, canActivate: [AuthGuard, RolGuard, StatusGuard, VerifyRolGuard], data: { roles: [1,2] }},
 ];
 
 @NgModule({

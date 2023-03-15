@@ -14,7 +14,7 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
 export class SeeChefsComponent implements OnDestroy  {
   chefs: Chef[] = [];
   eventSource: EventSource = new EventSource(
-    this.globalVariables.API_CHEF+'/stream'
+    'http://192.168.114.177:3333/chef/stream'
   );
   userRole: number = 0;
  
@@ -24,7 +24,7 @@ export class SeeChefsComponent implements OnDestroy  {
     private route: Router,
     private authService: AuthService,
     private cd: ChangeDetectorRef,
-    private globalVariables : GlobalVariablesService
+    private globalVatiables: GlobalVariablesService
   ) {}
   ngOnInit() {
     this.getChefs();

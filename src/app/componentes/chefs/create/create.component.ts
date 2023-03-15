@@ -19,7 +19,7 @@ export class CreateComponent {
     'ap_paterno': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]], 
     'ap_materno': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]], 
     'nacionalidad':['',[Validators.required]],
-    'edad':['',[Validators.required, Validators.minLength(2)]],
+    'edad':['',[Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(18), Validators.max(99)]],
   });
 
   get nombre(){ return this.formu.get('nombre') as FormControl}

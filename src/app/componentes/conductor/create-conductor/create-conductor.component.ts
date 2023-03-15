@@ -33,7 +33,7 @@ export class CreateConductorComponent {
     ],
     edad: [
       '',
-      [Validators.required, Validators.minLength(1), Validators.maxLength(3)],
+      [Validators.required, Validators.min(18), Validators.max(70)],
     ],
   });
   get nombre() {

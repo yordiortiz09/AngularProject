@@ -25,7 +25,7 @@ export class IngredienteService {
     )
   }
   updateIngrediente(ingrediente: ingredientes, id :number): Observable<ingredientes> {
-    return this.http.put<ingredientes>(this.globalVariable.API_INGREDIENTE + `/update`+ id, ingrediente)
+    return this.http.put<ingredientes>(this.globalVariable.API_INGREDIENTE + `/update/`+ id, ingrediente)
     .pipe(
       catchError(error => {
         this.message='Ocurrio un error';
@@ -36,7 +36,7 @@ export class IngredienteService {
 }
 mostrarIngrediente(id: number)
 {
-  return this.http.get<ingredientes>(this.globalVariable.API_URL+'/info' + '/' + id)
+  return this.http.get<ingredientes>(this.globalVariable.API_INGREDIENTE+'/info' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';
@@ -46,7 +46,7 @@ mostrarIngrediente(id: number)
 }
 eliminarIngrediente(id: number)
 {
-  return this.http.delete<ingredientes>(this.globalVariable.API_URL+'/delete' + '/' + id)
+  return this.http.delete<ingredientes>(this.globalVariable.API_INGREDIENTE+'/delete' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';

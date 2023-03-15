@@ -22,7 +22,7 @@ export class EditIngredientesComponent {
     private route: ActivatedRoute) {
     this.ingredienteForm = this.fb.group({
       'ingredientes':['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-      'unidades': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]], 
+      'unidades': ['', [Validators.required, Validators.min(1), Validators.max(100)]], 
   })
 }
 
