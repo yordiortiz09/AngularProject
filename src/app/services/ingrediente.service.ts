@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { ingredientes } from '../Interfaces/ingredientes';
+import { GlobalVariablesService } from './global-variables.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,12 @@ import { ingredientes } from '../Interfaces/ingredientes';
 export class IngredienteService {
   message: string = '';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private globalVariable: GlobalVariablesService) { }
 
   
   getIngredientes(): Observable<ingredientes[]> 
   {
-    return this.http.get<ingredientes[]>('http://192.168.123.110:8000/api/ingredientes/info')
+    return this.http.get<ingredientes[]>(this.globalVariable.API_INGREDIENTE +'/info')
     .pipe(
       catchError(error => {
         this.message='Ocurrio un error';
@@ -24,7 +25,7 @@ export class IngredienteService {
     )
   }
   updateIngrediente(ingrediente: ingredientes, id :number): Observable<ingredientes> {
-    return this.http.put<ingredientes>(`http://192.168.123.110:8000/api/ingredienteyordi/update/`+ id, ingrediente)
+    return this.http.put<ingredientes>(this.globalVariable.API_INGREDIENTE + `/update`+ id, ingrediente)
     .pipe(
       catchError(error => {
         this.message='Ocurrio un error';
@@ -35,7 +36,7 @@ export class IngredienteService {
 }
 mostrarIngrediente(id: number)
 {
-  return this.http.get<ingredientes>('http://192.168.123.110:8000/api/ingredienteyordi/info' + '/' + id)
+  return this.http.get<ingredientes>(this.globalVariable.API_URL+'/info' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';
@@ -45,7 +46,7 @@ mostrarIngrediente(id: number)
 }
 eliminarIngrediente(id: number)
 {
-  return this.http.delete<ingredientes>('http://192.168.123.110:8000/api/ingredienteyordi/delete' + '/' + id)
+  return this.http.delete<ingredientes>(this.globalVariable.API_URL+'/delete' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';

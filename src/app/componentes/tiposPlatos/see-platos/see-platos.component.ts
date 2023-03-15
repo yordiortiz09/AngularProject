@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platos } from 'src/app/Interfaces/tiposPlato.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { PlatoService } from 'src/app/services/plato.service';
 
 @Component({
@@ -10,10 +11,18 @@ import { PlatoService } from 'src/app/services/plato.service';
 })
 export class SeePlatosComponent {
   platos : Platos[] = [];
-  constructor(private platosService: PlatoService,private route:Router)  {}
+  userRole: number = 0;
+
+  constructor(private platosService: PlatoService,private route:Router, private authService:AuthService)  {}
   ngOnInit() {
     this.getPlatos();
+    this.authService.getUserRole().then(userRole => {
+      this.userRole = userRole;
+    });
   }
+  isAdmin(){return this.userRole === 1;}
+  isUser(){return this.userRole === 2;}
+  isGuest(){return this.userRole === 3;}
 
   getPlatos() {
     this.platosService.getPlatos().subscribe((platos)=> 

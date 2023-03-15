@@ -1,4 +1,13 @@
-
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="flex justify-end mb-4">
+        <div class="mr-2">
+            <select [(ngModel)]="statusFilter" (change)="filterUsers()" class="w-32 h-10 rounded-md border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+              <option value="">Todos</option>
+              <option value="1">Activos</option>
+              <option value="0">Inactivos</option>
+            </select>
+          </div>
+    </div>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -54,7 +63,6 @@
                 </td>
                 <td class="px-6 py-4 text-right">
                     <a (click)="onDelete(user.id, user.rol_id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                
                 </td> 
             </tr>
         </tbody>

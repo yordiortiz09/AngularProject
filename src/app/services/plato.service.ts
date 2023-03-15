@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Platos } from '../Interfaces/tiposPlato.interface';
+import { GlobalVariablesService } from './global-variables.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,11 @@ import { Platos } from '../Interfaces/tiposPlato.interface';
 export class PlatoService {
   message: string = '';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private globalVariable:GlobalVariablesService) { }
 
   getPlatos(): Observable<Platos[]> 
   {
-    return this.http.get<Platos[]>('http://192.168.123.110:8000/api/tipo_platoyoerdi/info')
+    return this.http.get<Platos[]>(this.globalVariable.API_PLATO +'/info')
     .pipe(
       catchError(error => {
         this.message='Ocurrio un error';
@@ -23,7 +24,7 @@ export class PlatoService {
     )
   }
   updatePlatos(plato: Platos, id :number): Observable<Platos> {
-    return this.http.put<Platos>(`http://192.168.123.110:8000/api/tipo_platoyordi/update/`+ id, plato)
+    return this.http.put<Platos>(this.globalVariable.API_PLATO +`/update`+ '/'+ id, plato)
     .pipe(
       catchError(error => {
         this.message='Ocurrio un error';
@@ -34,7 +35,7 @@ export class PlatoService {
 }
 mostrarPlato(id: number)
 {
-  return this.http.get<Platos>('http://192.168.123.110:8000/api/tipo_platoyordi/info' + '/' + id)
+  return this.http.get<Platos>(this.globalVariable.API_PLATO +'/info' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';
@@ -44,7 +45,7 @@ mostrarPlato(id: number)
 }
 eliminarPlato(id: number)
 {
-  return this.http.delete<Platos>('http://192.168.123.110:8000/api/tipo_platoyordi/delete' + '/' + id)
+  return this.http.delete<Platos>(this.globalVariable.API_PLATO +'/delete' + '/' + id)
   .pipe(
     catchError(error => {
       this.message='Ocurrio un error';

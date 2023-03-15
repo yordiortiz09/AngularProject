@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Chef } from 'src/app/Interfaces/chef.interface';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-create',
@@ -10,7 +11,7 @@ import { Chef } from 'src/app/Interfaces/chef.interface';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent {
-  constructor (private fb:FormBuilder, private http: HttpClient, private router: Router){
+  constructor (private fb:FormBuilder, private http: HttpClient, private router: Router, private globalVariable: GlobalVariablesService, private cd: ChangeDetectorRef){
 
   }
   formu = this.fb.group({
@@ -29,7 +30,7 @@ export class CreateComponent {
 
   registrarChef() {
    
-    const url = 'http://192.168.123.110:8000/api/chefyordi';
+    // const url = 'http://192.168.123.110:8000/api/chefyordi';
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -43,22 +44,18 @@ export class CreateComponent {
     body.set('edad', this.formu.value.edad!);
 
 
-    this.http.post<Chef>(url, body.toString(), { headers }).subscribe(
+    this.http.post<Chef>(this.globalVariable.API_CHEF + '/create', body.toString(), { headers }).subscribe(
       response => {
         if (response && response.status && response.status >= 400 ) {
           alert(`Se produjo un error: ${response.status}`);
         } else {
-          alert('Los datos se enviaron correctamente');
-          this.formu.reset();
+          alert('Los datos se enviaron correctamente'); 
           this.router.navigate(['/chefs-info']);
+
         }
       },
     
     );
-
-  // name= new FormControl('', Validators.required);
-  // email=  new FormControl('', [Validators.required, Validators.email]);
-  // password=  new FormControl('',[Validators.required]);
- 
  }
+ 
 }

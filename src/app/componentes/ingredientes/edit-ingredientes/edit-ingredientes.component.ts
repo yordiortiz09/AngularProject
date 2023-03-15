@@ -15,7 +15,11 @@ export class EditIngredientesComponent {
   ingrediente: ingredientes [] = [];
   ingredienteForm: FormGroup;
   id: number = 0;
-  constructor (private fb:FormBuilder, private http: HttpClient, private router: Router, private ingredienteService: IngredienteService, private route: ActivatedRoute) {
+  constructor (private fb:FormBuilder,
+    private http: HttpClient, 
+    private router: Router, 
+    private ingredienteService: IngredienteService, 
+    private route: ActivatedRoute) {
     this.ingredienteForm = this.fb.group({
       'ingredientes':['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
       'unidades': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]], 

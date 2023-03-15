@@ -1,0 +1,76 @@
+
+<div class="font-sans">
+    <div class="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
+        <div class="relative sm:max-w-sm w-full">
+            <div class="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
+                <label for="" class="block mt-2 text-2xl text-gray-700 text-center font-semibold">
+                   Crear Receta
+                </label>
+                <form [formGroup]="formu" (ngSubmit)="registrarReceta()" class="mt-10">
+                                    
+                    <div class="mt-7">                
+                        <input type="text" formControlName="nombre"  class="form-control" placeholder="Nombre" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="nombre.valid ||nombre.pristine">
+                            <span *ngIf="nombre.errors?.['required']">Ingredientes Obligatorio. </span>
+                            <span *ngIf="nombre.errors?.['minlength']">Debe tener minimo 3 caracteres</span>
+                            <span *ngIf="nombre.errors?.['maxlength']">Debe tener maximo 25 caracteres</span>
+                          </div>                                  
+                    </div>
+        
+                    <div class="mt-7">                
+                        <input type="text" formControlName="duracion" class="form-control" placeholder="Duracion" class="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0">        
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="duracion.valid ||duracion.pristine">
+                            <span *ngIf="duracion.errors?.['required']">Duracion Obligatoria.</span>
+                            <span *ngIf="duracion.errors?.['minlength']">Debe tener minimo 1 caracteres.</span>
+                            <span *ngIf="duracion.errors?.['maxlength']">Maximo 2 caracter.</span>
+                          </div>                                  
+                    </div>
+
+                    <div class="mt-7">     
+                        <textarea id="message" formControlName="preparacion" class="form-control" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 white:bg-gray-700 white:border-gray-600 dark:placeholder-gray-400 white:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Preparacion..."></textarea>            
+      
+                        <div class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert" [hidden]="preparacion.valid ||preparacion.pristine">
+                            <span *ngIf="preparacion.errors?.['required']">Descripcion Obligatoria.</span>
+                            <span *ngIf="preparacion.errors?.['minlength']">Debe tener minimo 10 caracteres.</span>
+                            <span *ngIf="preparacion.errors?.['maxlength']">Maximo 100 caracteres.</span>
+                          </div>
+                    </div>                                
+                    
+
+                    <label for="chefs" class="block mb-2 text-sm font-medium text-gray-900 bg-white:text-white">Seleccione chef</label>
+                      <select id="chefs" formControlName="chef"  name="chef" required class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-100:bg-gray-700 bg-gray-100:border-gray-600 bg-gray-100:placeholder-gray-400 bg-gray-100::text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option *ngFor="let chef of chefs" value="{{chef.id}}">{{chef.nombre}}</option>
+                      </select>
+                        <div *ngIf="chef.invalid && chef.touched " class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+                          <span *ngIf="chef.errors?.['required']">Chef obligatorio.</span>
+                        </div>
+
+                        <label for="ingredientes" class="block mb-2 text-sm font-medium text-gray-900 bg-white:text-white">Seleccione Ingrediente</label>
+                        <select id="ingredientes" formControlName="ingrediente" name="ingrediente" required class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-100:bg-gray-700 bg-gray-100:border-gray-600 bg-gray-100:placeholder-gray-400 bg-gray-100::text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                          <option *ngFor="let ingrediente of ingredientes" value="{{ingrediente.id}}">{{ingrediente.ingredientes}}</option>
+                        </select>
+                          <div *ngIf="ingrediente.invalid && ingrediente.touched" class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+                            <span *ngIf="ingrediente.errors?.['required']">Ingrediente obligatorio.</span>
+                          </div>
+  
+                        <label for="Plato" class="block mb-2 text-sm font-medium text-gray-900 bg-white:text-white">Seleccione Tipo de plato</label>
+                        <select id="tipo_plato" formControlName="tipo_plato" name="ingrediente" required class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-100:bg-gray-700 bg-gray-100:border-gray-600 bg-gray-100:placeholder-gray-400 bg-gray-100::text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                          <option *ngFor="let plato of tipo_platos" value="{{plato.id}}">{{plato.nombre}}</option>
+                        </select>
+                          <div *ngIf="tipo_plato.invalid && tipo_plato.touched" class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+                            <span *ngIf="tipo_plato.errors?.['required']">Tipo de plato obligatorio.</span>
+                          </div>
+                        
+                    <div class="mt-7 flex flex-col items-center">
+                        <button class="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded-full hover:shadow-inner" 
+                        type="submit" 
+                        [disabled]="formu.invalid" >
+                           Crear Receta
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ingredientes } from 'src/app/Interfaces/ingredientes';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 @Component({
   selector: 'app-create-ingredientes',
@@ -10,7 +11,12 @@ import { ingredientes } from 'src/app/Interfaces/ingredientes';
   styleUrls: ['./create-ingredientes.component.css']
 })
 export class CreateIngredientesComponent {
-  constructor (private fb:FormBuilder, private http: HttpClient, private router: Router){
+  constructor (
+    private fb:FormBuilder,
+     private http: HttpClient,
+      private router: Router,
+      private globalVariable: GlobalVariablesService
+      ){
 
   }
   formu = this.fb.group({
@@ -35,7 +41,7 @@ export class CreateIngredientesComponent {
   
 
 
-    this.http.post<ingredientes>(url, body.toString(), { headers }).subscribe(
+    this.http.post<ingredientes>(this.globalVariable.API_INGREDIENTE + '/create', body.toString(), { headers }).subscribe(
       response => {
         if (response && response.status && response.status >= 400 ) {
           alert(`Se produjo un error: ${response.status}`);

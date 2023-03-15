@@ -17,6 +17,9 @@ export class SeeUsersComponent {
   id: number = 0;
   users: User[] = [];
   isDialogOpen = false;
+  statusFilter: string = '';
+
+  
   
 
   constructor(private authService: AuthService,private sharedService: SharedServiceService,private router:Router, private http: HttpClient, private matDialog: MatDialog) { }
@@ -31,6 +34,17 @@ export class SeeUsersComponent {
       this.users = users;
     });
   }
+
+  filterUsers() {
+    if (this.statusFilter === '') {
+      this.loadUsers();
+    } else {
+      this.authService.getUsers().subscribe((users) => {
+        this.users = users.filter(user => user.status.toString() === this.statusFilter);
+      });
+    }
+  }
+  
 
   openEditDialog(user: User) {
     if (!this.isDialogOpen) {

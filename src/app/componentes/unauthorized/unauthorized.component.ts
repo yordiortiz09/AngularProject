@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-unauthorized',
-  template: '<h1>No tienes permiso para acceder a esta página.</h1>'
+  templateUrl: './unauthorized.component.html',
+  styleUrls: ['./unauthorized.component.css']
 })
 export class UnauthorizedComponent {}

@@ -14,17 +14,15 @@ import { PlatoService } from 'src/app/services/plato.service';
 export class EditPlatosComponent {
   platos: Platos [] = [];
   id: number = 0;
-  formu: FormGroup;
+  formu : FormGroup;
 
   constructor (private fb:FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute, private platosService:PlatoService){
     this.formu = this.fb.group({
       'nombre':['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
       'descripcion': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]], 
   })
- 
   }
-
-
+  
   get nombre(){ return this.formu.get('nombre') as FormControl}
   get descripcion(){ return this.formu.get('descripcion') as FormControl}
 

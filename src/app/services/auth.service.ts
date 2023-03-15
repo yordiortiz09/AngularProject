@@ -1,30 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
 import { User } from '../Interfaces/user.interface';
+import { GlobalVariablesService } from './global-variables.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  // private apiUrl = 'http://127.0.0.1:8000/api/user/registro';
-  // private apiUrl2 = 'http://127.0.0.1:8000/api/user';
-  // private apiUrl3 = 'http://127.0.0.1:8000/api';
-  // private apiUpdate = 'http://127.0.0.1:8000/api/user/update/status';
-  // private Urole = 'http://127.0.0.1:8000/api/user/update/role';
-  // private baseUrl='http://127.0.0.1:8000/api/user/update'
-  // private token: string | null = null;
-  // private role: string | null = null;
-
+  public userRole: number=0;
   
-  private apiUrl = 'http://192.168.123.110:8000/api/user/registro';
-  private apiUrl2 = 'http://192.168.123.110:8000/api/user';
-  private apiUrl3 = 'http://192.168.123.110:8000/api';
-  private apiUpdate = 'http://192.168.123.110:8000/api/user/update/status';
-  private Urole = 'http://192.168.123.110:8000/api/user/update/role';
-  private baseUrl='http://192.168.123.110:8000/api/user/update'
+ 
   private token: string | null = null;
   private role: string | null = null;
   
@@ -33,17 +21,8 @@ export class AuthService {
     return true;
   }
 
+  constructor(private http: HttpClient, private globalVariable: GlobalVariablesService, private router : Router) {}
   
-
-  constructor(private http: HttpClient) {
-  
-   }
-   public checkRole(): Observable<any> {
-    return this.http.get('/api/user');
-  }
-
- 
-
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
@@ -51,12 +30,40 @@ export class AuthService {
       Authorization: `Bearer ${token}`
     });
   }
-  verifyToken(token: string) {
-    return this.http.get<boolean>(`${this.apiUrl3}/verifyToken`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+
+  verifyToken(token: string): Observable<boolean> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `${this.globalVariable.API_URL2}/verifyToken`;
+  
+    return this.http.get<boolean>(url, { headers }).pipe(
+      tap(
+        (response) => {},
+        (error) => {
+          if (error.status === 401) {
+            localStorage.removeItem('token');
+            this.router.navigate(['/login']);
+          }
+        }
+      )
+    );
+  }
+  
+  async getUserRole() {
+    try {
+      const response: any = await this.http.get(this.globalVariable.API_URL2 +'/role').toPromise();
+      return response.rol_id;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  getStatus() {
+    try {
+      return this.http.get(this.globalVariable.API_URL2+'/status').toPromise();
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 
 
@@ -65,7 +72,6 @@ export class AuthService {
     localStorage.removeItem('rol_id');
     localStorage.removeItem('id');
     localStorage.removeItem('name');
-    
   }
 
   getToken(): string | null {
@@ -76,7 +82,7 @@ export class AuthService {
   }
   deleteUser(id: number)
   {
-    return this.http.delete('http://192.168.123.110:8000/api/user/delete' + '/' + id)
+    return this.http.delete(this.globalVariable.API_URL2 + '/user/delete' + '/' + id)
     .pipe(
       retry(3),
       catchError(this.handleError)
@@ -85,7 +91,7 @@ export class AuthService {
 
   info(id: number)
   {
-    return this.http.get<User>(this.apiUrl2 + '/' + id)
+    return this.http.get<User>(this.globalVariable.API_URL2 +'/user' + '/' + id)
     .pipe(
       retry(3),
       catchError(this.handleError)
@@ -94,30 +100,47 @@ export class AuthService {
 
   login(user: User)
   {
-      return this.http.post<User>(this.apiUrl, user)
+
+      return this.http.post<User>(this.globalVariable.API_URL2 + '/login' , user) 
       .pipe(
         retry(3),
         catchError(this.handleError)
       );
+      
   }
   getUsers(): Observable<User[]> 
   {
-    return this.http.get<User[]>('http://192.168.123.110:8000/api/users')
+    return this.http.get<User[]>(this.globalVariable.API_URL2 + '/users')
     .pipe(
       retry(3),
       catchError(this.handleError)
     );
   }
-
-updateUserRoleAndStatus(userId: number, roleId: number, status: boolean): Observable<User> {
-  const body = { rol_id: roleId, status: status };
-  const url = `${this.baseUrl}/${userId}`;
-  const loggedInUserId = localStorage.getItem('id');
-  if (loggedInUserId && +loggedInUserId === userId) {
-    return throwError(() => alert('No se puede actualizar el propio perfil.'));
+  
+  updateUserRoleAndStatus(userId: number, roleId: number, status: boolean): Observable<User> {
+    const body = { rol_id: roleId, status: status };
+    const url = `${this.globalVariable.API_URL2 + '/user/update'}/${userId}`;
+    return this.http.put<User>(url, body)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 400) {
+            alert('Error: ' + error.error.message);
+          }
+          return throwError(error);
+        })
+      );
   }
-  return this.http.put<User>(url, body);
-}
+  getStatuss(): Observable<User> {
+    return this.http.get<User>(`${this.globalVariable.API_URL2}/getStatus`).pipe(
+      catchError((error) => {
+        if (error.status === 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/login']);
+        }
+        return throwError(error);
+      })
+    );
+  }
 
   private handleError(error: HttpErrorResponse)
   {
@@ -136,23 +159,5 @@ updateUserRoleAndStatus(userId: number, roleId: number, status: boolean): Observ
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
-  public getRole() {
-    return localStorage.getItem('rol_id');
-  }
-
-  setRole(role: string) {
-    this.role = role;
-  }
-
-  public isAdmin() {
-    return this.getRole() === '1';
-  }
-
-  public isEditor() {
-      return this.getRole() === '2';
-  }
-
-  public isViewer() {
-      return this.getRole() === '3';
-  }
+  
 }
