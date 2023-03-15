@@ -51,7 +51,6 @@ export class CreateComponent {
         } else {
           alert('Los datos se enviaron correctamente'); 
           this.router.navigate(['/chefs-info']);
-
         }
       },
     
