@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, Subject, throwError } from 'rxjs';
+import { catchError, finalize, Subject, throwError } from 'rxjs';
 import { Chef } from 'src/app/Interfaces/chef.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChefService } from 'src/app/services/chef.service';
@@ -11,13 +11,12 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
   templateUrl: './see-chefs.component.html',
   styleUrls: ['./see-chefs.component.css'],
 })
-export class SeeChefsComponent implements OnDestroy  {
+export class SeeChefsComponent implements OnDestroy {
   chefs: Chef[] = [];
   eventSource: EventSource = new EventSource(
-    'http://192.168.114.177:3333/chef/stream'
+    'http://127.0.0.1:3333/chef/stream'
   );
   userRole: number = 0;
- 
 
   constructor(
     private chefService: ChefService,
@@ -28,19 +27,29 @@ export class SeeChefsComponent implements OnDestroy  {
   ) {}
   ngOnInit() {
     this.getChefs();
+
     this.authService.getUserRole().then((userRole) => {
       this.userRole = userRole;
     });
-    this.eventSource.addEventListener('newChef', (event) => {
-      console.log('Evento newChef recibido:', event);
+    this.eventSource.addEventListener('Chef', (event) => {
+      console.log('Evento Chef recibido:', event);
+      const updatedChef = JSON.parse(event.data);
+      const index = this.chefs.findIndex((chef) => chef.id === updatedChef.id);
+      if (index > -1) {
+        this.chefs[index] = updatedChef;
+      } else {
+        this.chefs.push(updatedChef);
+      }
+    });
+    this.eventSource.addEventListener('Delete', (event) => {
+      console.log('Evento Chef recibido:');
       const chef = JSON.parse(event.data);
-      this.chefs.push(chef)
-      this.cd.markForCheck();
+      console.log('Chef eliminado:', chef.id);
+      this.chefs = this.chefs.filter((c) => c.id !== chef.id);
+      this.cd.detectChanges();
     });
   }
-  ngOnDestroy() {
-    this.eventSource.close();
-  }
+
   isAdmin() {
     return this.userRole === 1;
   }
@@ -59,15 +68,19 @@ export class SeeChefsComponent implements OnDestroy  {
     this.route.navigate(['chef-edit', id]);
     this.cd.markForCheck();
   }
-
   eliminarChef(id: number, nombre: string): void {
     if (confirm(`¿Está seguro que desea eliminar al chef, ${nombre}?`)) {
       this.chefService.eliminarChef(id).subscribe(
         () => {
           this.chefs = this.chefs.filter((chef) => chef.id !== id);
+          this.cd.markForCheck();
         },
         (error) => console.error(error)
       );
     }
+  }
+
+  ngOnDestroy() {
+    this.eventSource.close();
   }
 }

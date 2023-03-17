@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { subscribeOn } from 'rxjs';
 import { Conductores } from 'src/app/Interfaces/conductor.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConductorService } from 'src/app/services/conductor.service';
@@ -9,10 +10,11 @@ import { ConductorService } from 'src/app/services/conductor.service';
   templateUrl: './see-conductores.component.html',
   styleUrls: ['./see-conductores.component.css']
 })
-export class SeeConductoresComponent {
+export class SeeConductoresComponent implements OnDestroy {
   conductores : Conductores[]=[]
   userRole : number =0
   intervalo: number = 10000;
+  inter: any;
 
   constructor(
     private conductorService : ConductorService,
@@ -24,11 +26,13 @@ export class SeeConductoresComponent {
     this.authService.getUserRole().then(userRole => {
       this.userRole = userRole;
     });
+    this.inter =
     setInterval(() => {
       this.getConductores();
     }, this.intervalo);
+
   }
-  
+ 
   isAdmin(){return this.userRole === 1;}
   isUser(){return this.userRole === 2;}
   isGuest(){return this.userRole === 3;}
@@ -51,5 +55,10 @@ export class SeeConductoresComponent {
       );
     }
   }
+  ngOnDestroy(){
+    clearInterval(this.inter);
 
+    
+  }
+  
 }

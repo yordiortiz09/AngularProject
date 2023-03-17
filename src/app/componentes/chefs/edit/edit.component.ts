@@ -15,6 +15,9 @@ export class EditComponent {
   chefForm: FormGroup;
   id: number = 0;
   chef: Chef [] = [];
+  eventSource: EventSource = new EventSource(
+    'http://192.168.119.52:3333/chef/stream'
+  );
   
   
   constructor (private fb:FormBuilder, private http: HttpClient, private router: Router,private chefService: ChefService, private route: ActivatedRoute) {
@@ -36,6 +39,7 @@ get edad(){return this.chefForm.get('edad') as FormControl}
 ngOnInit(): void {
   this.route.params.pipe(catchError(error => of({ id: null }))).subscribe(params => {this.id = params['id']});
   this.getChef();
+  
 }
 getChef(){
   this.chefService.mostrarChef(this.id).subscribe((chef)=> {this.chefForm.patchValue(chef);
