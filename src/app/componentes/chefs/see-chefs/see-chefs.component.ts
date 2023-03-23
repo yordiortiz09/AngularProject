@@ -14,7 +14,7 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
 export class SeeChefsComponent implements OnDestroy {
   chefs: Chef[] = [];
   eventSource: EventSource = new EventSource(
-    'http://127.0.0.1:3333/chef/stream'
+    'http://192.168.114.208:3333/chef/stream'
   );
   userRole: number = 0;
 
@@ -32,7 +32,7 @@ export class SeeChefsComponent implements OnDestroy {
       this.userRole = userRole;
     });
     this.eventSource.addEventListener('Chef', (event) => {
-      console.log('Evento Chef recibido:', event);
+      console.log('Evento Chef recibido');
       const updatedChef = JSON.parse(event.data);
       const index = this.chefs.findIndex((chef) => chef.id === updatedChef.id);
       if (index > -1) {

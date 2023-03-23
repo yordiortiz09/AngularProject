@@ -57,8 +57,5 @@ export class SeeConductoresComponent implements OnDestroy {
   }
   ngOnDestroy(){
     clearInterval(this.inter);
-
-    
   }
-  
 }
